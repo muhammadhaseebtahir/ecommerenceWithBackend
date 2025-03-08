@@ -1,0 +1,115 @@
+/* HTML: <div class="loader"></div> */
+// .loader {
+//     width: 50px;
+//     aspect-ratio: 1;
+//     --_c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+//     background: 
+//       var(--_c) top,
+//       var(--_c) left,
+//       var(--_c) right,
+//       var(--_c) bottom;
+//     background-size: 12px 12px;
+//     animation: l7 1s infinite;
+//   }
+//   @keyframes l7 {to{transform: rotate(.5turn)}}
+
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+// .loader {
+//   width: 48px;
+//   height: 48px;
+//   border-radius: 50%;
+//   display: inline-block;
+//   position: relative;
+//   border: 3px solid;
+//   border-color: #FFF #FFF transparent transparent;
+//   box-sizing: border-box;
+//   animation: rotation 1s linear infinite;
+// }
+
+// .loader::after,
+// .loader::before {
+//   content: '';
+//   box-sizing: border-box;
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+//   margin: auto;
+//   border: 3px solid;
+//   border-color: transparent transparent #FF3D00 #FF3D00;
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 50%;
+//   box-sizing: border-box;
+//   animation: rotationBack 0.5s linear infinite;
+//   transform-origin: center center;
+// }
+
+// .loader::before {
+//   width: 32px;
+//   height: 32px;
+//   border-color: #FFF #FFF transparent transparent;
+//   animation: rotation 1.5s linear infinite;
+// }
+
+// @keyframes rotation {
+//   0% {
+//       transform: rotate(0deg);
+//   }
+
+//   100% {
+//       transform: rotate(360deg);
+//   }
+// }
+
+// @keyframes rotationBack {
+//   0% {
+//       transform: rotate(0deg);
+//   }
+
+//   100% {
+//       transform: rotate(-360deg);
+//   }
+// }
+
+
+
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+}
+.loader::before,
+.loader::after {    
+  content:"";
+  grid-area: 1/1;
+  --c:no-repeat radial-gradient(farthest-side,#fb8500 92%,#0000);
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 12px 12px;
+  animation: l12 1s infinite;
+}
+.loader::before {
+  margin: 4px;
+  filter: hue-rotate(45deg);
+  background-size: 8px 8px;
+  animation-timing-function: linear
+}
+
+@keyframes l12 { 
+  100%{transform: rotate(.5turn)}
+}

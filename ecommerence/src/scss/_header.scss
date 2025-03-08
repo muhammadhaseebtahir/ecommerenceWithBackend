@@ -1,0 +1,46 @@
+.navbar-nav{
+    gap: 10px;
+}
+.nav-item{
+    .nav-link{
+        padding: 5px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        font-weight: 400;
+        font-size: 16px;
+
+        
+        &:hover{
+            color: #fb8500;
+            background-color: #e0e1dd;
+        }
+    }
+}
+
+.dropItems{
+    // padding: 10px;
+    font-size: 16px;
+}
+
+.dropItems::after{
+    content: "";
+    display: block;
+    width: 0;
+height: 3px;
+background-color: #fb8500;
+transition: width 0.3s ease;
+}
+
+
+
+
+.dropItems:hover::after{
+    width: 100%;
+
+}
+
+
+
+
+
+  
