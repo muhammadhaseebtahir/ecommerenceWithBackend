@@ -7,6 +7,7 @@ import { useAuthContext } from './context/AuthContext';
 import ScreenLoader from './components/ScreenLoader';
 function App() {
 const {isAppLoading}= useAuthContext()
+// console.log(isAppLoading);
 
   return (
    <>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
 import { Dropdown } from "antd";
-import { CloseOutlined, UserOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 
 import { useAuthContext } from "../../context/AuthContext";
 
@@ -22,7 +22,8 @@ export default function Header() {
   const {isAuthenticated,handleLogout,isAdmin,user}=useAuthContext()
   const [isOpen, setIsOpen] = useState(false);
   const [triggerType, setTriggerType] = useState(["hover"]);
-  const nameUser= user.userName.slice(0,2).toUpperCase();
+  const nameUser = user?.userName ? user.userName.slice(0, 2).toUpperCase() : "";
+
 
 
   const profileItems = [
@@ -123,7 +124,7 @@ export default function Header() {
               isAuthenticated ? (
                 <Dropdown menu={{ items: profileItems }} placement="bottomLeft" trigger={triggerType}>
                   <div className="nav-link dropdown-toggle" style={{ cursor: "pointer" }}>
-                    {/* <UserOutlined /> */}
+                  
                     <span style={{backgroundColor:"#fb8500",color:"white",borderRadius:"50%",padding:"8px",fontSize:'18px'}} >
 
                     {nameUser}
@@ -132,7 +133,7 @@ export default function Header() {
                   </div>
                 </Dropdown>
               ) : (
-                <Link to="/auth/login" className="btn text-light" style={{backgroundColor:"#fb8500"}}>
+                <Link to="/auth/login" className="btn btn-dark px-4 shadow" >
                   Login
                 </Link>)
            }

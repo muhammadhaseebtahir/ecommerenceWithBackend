@@ -1,0 +1,42 @@
+.collectionBtn{
+    background-color: white;
+    transition: all 0.5s ease-in-out 0.3s;
+}
+
+.collectionBtn:hover,
+.collectionBtn:focus{
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+}
+
+
+
+// ***************CARD******************
+.cardTopImage{
+    height: 230px;
+    overflow: hidden;
+}
+.imageCard{
+    transition: transform 0.5s ease-in-out ;
+
+}
+.imageCard:hover{
+transform: scale(1.1);
+}
+
+
+
+.mainBoxOfCard{
+    width: 14rem;
+    border: none;
+}
+
+
+
+@media only  screen and (min-width:992px){
+    
+.mainBoxOfCard{
+    width: 18rem;
+}
+}
