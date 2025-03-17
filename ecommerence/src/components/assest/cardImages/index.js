@@ -17,6 +17,7 @@ import dress16 from "./dress22.jpeg";
 
 export const dresses = [
   {
+    id: generateRandomId(),
     urlImage: dress1,
     name: "Stand Collar Shirt",
     brand: "Zara",
@@ -27,7 +28,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress2,
     name: "White Chiffon Maxi",
     brand: "H&M",
@@ -38,7 +39,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress3,
     name: "Yellow Floral Dress",
     brand: "Forever 21",
@@ -49,7 +50,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress4,
     name: "Elegant Charm Dress",
     brand: "Mango",
@@ -60,7 +61,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress5,
     name: "Floral Maxi Dress",
     brand: "Gucci",
@@ -71,7 +72,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress6,
     name: "Light Pink Dress",
     brand: "Prada",
@@ -82,7 +83,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress7,
     name: "Classy Evening Dress",
     brand: "Dior",
@@ -93,7 +94,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress8,
     name: "Modern Women's Dress",
     brand: "Louis Vuitton",
@@ -104,7 +105,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress9,
     name: "Floral Magic Dress",
     brand: "Versace",
@@ -115,7 +116,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress10,
     name: "Denim Puff Sleeve",
     brand: "Levi's",
@@ -126,7 +127,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress11,
     name: "Dark Blue Dress",
     brand: "Burberry",
@@ -137,7 +138,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress12,
     name: "Easter Brunch Dress",
     brand: "Chanel",
@@ -148,7 +149,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress13,
     name: "Soft Pink Dress",
     brand: "Tommy Hilfiger",
@@ -159,7 +160,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress14,
     name: "Navy Maxi Dress",
     brand: "Ralph Lauren",
@@ -170,7 +171,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress15,
     name: "Bodycon Mermaid Dress",
     brand: "Dolce & Gabbana",
@@ -181,7 +182,7 @@ export const dresses = [
     sizes: ["S", "M", "L", "XL"],
     type: "Women's Cloth",
   },
-  {
+  { id: generateRandomId(),
     urlImage: dress16,
     name: "Bodycon Mermaid Dress",
     brand: "Armani",
@@ -193,3 +194,6 @@ export const dresses = [
     type: "Women's Cloth",
   },
 ];
+function generateRandomId() {
+  return  (Math.random().toString(36).slice(2) + "-" + Date.now())
+}

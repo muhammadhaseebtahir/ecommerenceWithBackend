@@ -1,9 +1,9 @@
 import React from 'react';
 import { Rate, Space } from 'antd';
 
-export default function Card({ item }) {
+export default function Card({ item,onClick }) {
   return (
-    <div className='card shadow p-2 mainBoxOfCard'>
+    <div className='card shadow p-2 mainBoxOfCard' onClick={onClick} >
       <div className="cardTopImage rounded-1" style={{ overflow: "hidden" }}>
         <img
           src={item.urlImage}

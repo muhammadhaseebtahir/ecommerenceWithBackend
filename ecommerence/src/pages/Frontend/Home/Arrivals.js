@@ -5,9 +5,10 @@ import { dresses } from '../../../components/assest/cardImages/index';
 import 'remixicon/fonts/remixicon.css'
 
 import peakyBlinder from "../../../components/assest/img/peakyBlinder.png"
+import { useNavigate } from 'react-router-dom';
 
 export default function Arrivals() {
-  
+  const navigte =useNavigate()
   const [collectionType, setCollectionType] = useState("Women's Cloth");
   const [filteredDresses, setFilteredDresses] = useState([]);
 const [viewMoreProduct,setViewMoreProduct]= useState(6)
@@ -40,7 +41,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
         <div className="cardSection d-flex justify-content-around flex-wrap gap-3 mt-5">
         {filteredDresses.length > 0 ? (
           filteredDresses.slice(0,viewMoreProduct).map((item, i) => (
-            <Card key={i} item={item} />
+            <Card key={i} item={item} onClick={()=>{navigte(`shop/product/${item.id}`,{state:{item}})}} />
           ))
         ) : (
           <h5 className="text-center text-danger">No Products Available</h5>
@@ -91,7 +92,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
             <button className='btn btn-dark px-5 mt-3' >Buy now</button>
       </div>
      </div>
-     <div className="highQuality px-0 w-100 py-4 d-flex justify-content-around align-items-center flex-wrap mt-5 gap-5"  style={{boxShadowBottom:""}}>
+     <div className="highQuality  px-0 w-100 py-4 d-flex justify-content-around align-items-center flex-wrap mt-5 gap-5"  style={{boxShadowBottom:""}}>
       <p className=''><i className="ri-store-2-fill fs-4"></i> High Quality <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>crafted from top material</span></p>
       <p className=''><i className="ri-gift-2-line fs-4"></i>  Warranty Protection<br /> <span  style={{fontSize:"14px",color:"#6c757d"}}>Over 2 year</span></p>
       <p className=''> <i className="ri-store-2-line fs-4"></i>Free Shipping <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>oreder Over 150$</span></p>
