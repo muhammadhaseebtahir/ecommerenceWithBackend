@@ -4,8 +4,8 @@ import footerImage2 from "../assest/img/footerimage2.png"
 
 export default function Footer() {
   return (
-    <div className='container my-3'>
-        <div className="subscribeBox p-5 d-flex justify-content-around align-items-center">
+    <div className='container my-3 px-0'>
+        <div className="subscribeBox p-0  p-md-5 d-flex justify-content-around align-items-center">
             <div className="leftImage" style={{height:"400px",width:"200px"}}>
             <img src={footerImage2} alt="FooterDress" className='h-100 w-100'  />
 
@@ -26,11 +26,11 @@ export default function Footer() {
         </div>
         <hr />
         <div className="footerBottom d-flex justify-content-between align-items-center">
-            <div className="leftpart ps-5">
+            <div className="leftpart ps-2 ps-md-5">
                <p style={{fontFamily:"Times New Roman"}} >FASCO</p>
             </div>
             <div className="rightPart">
-                  <ul style={{listStyle:"none",gap:"20px", display:"flex" ,flexWrap:"wrap",color:"#adb5bd"}}>
+                  <ul className='gap-3 gap-md-4'  style={{listStyle:"none", display:"flex" ,flexWrap:"wrap",color:"#adb5bd"}}>
                     <li>Support Center</li>
                     <li>Invocing</li>
                     <li>Contact</li>
