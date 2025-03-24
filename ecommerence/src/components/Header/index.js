@@ -97,8 +97,8 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link active" aria-current="page" >
-                About
+              <Link to="/order" className="nav-link active" aria-current="page" >
+                Order
               </Link>
             </li>
             <li className="nav-item dropdown">

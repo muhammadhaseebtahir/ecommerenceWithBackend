@@ -1,14 +1,39 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Image, Rate, Space, Button, Avatar, List  } from "antd";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Image, Rate, Space, Button, Avatar, List,Empty  } from "antd";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
-
+import { dresses } from '../../../components/assest/cardImages/index';
+import Card from "../../../components/card";
+const initialReview = {
+  review: "", rating: ""}
 export default function ProductDeatils() {
-
-  const loaction = useLocation();
-  const { item } = loaction.state;
+      const navigate = useNavigate()
+    const loacation = useLocation();
+  const { item } = loacation.state;
   const [selectedSize, setSelectedSize] = useState(null);
+  const [review, setReview] = useState(initialReview);
+  // const [Isprocessing,setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // ✅ Always scroll to top when route changes
+  }, [location.pathname]);
+
+  const handleChange = (e) => {
+    setReview((s) => ({ ...s, [e.target.name]: e.target.value }));
+    
+    
+  };
+
+   const handleSubmit = (e)=>{
+    e.preventDefault();
+     
+      setReview(initialReview)
+   }
+
+
+
+  
 
   const data = [
     {
@@ -70,7 +95,7 @@ export default function ProductDeatils() {
             src={item.urlImage}
             alt="Product Details"
             className="horizontalImageSize h-100 w-100"
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover" ,height:"100%"}}
           />
         </div>
         <div className="productDetailsData p-3" style={{ flex: "25%" }}>
@@ -114,16 +139,11 @@ export default function ProductDeatils() {
               <Button className="p-3" icon={<PlusOutlined />} />
             </Space.Compact>
 
-            <Button
-              className=" text-light "
-              style={{
-                padding: "5px 100px",
-                backgroundColor: "#212529",
-                borderRadius: "20px",
-              }}
-            >
+            <button
+              className="btn btn-dark  text-light px-4 px-md-5 " onClick={()=>alert("hello")} >
               Add to cart
-            </Button>
+            </button>
+            
           </Space>
 
           
@@ -132,7 +152,13 @@ export default function ProductDeatils() {
 
         <div className="reviewSection mt-3 p-2 border rounded-2">
           <p className="fw-bold p-3">All Reviews  {`(${data.length})`} </p>
-           
+          <form onSubmit={handleSubmit}>
+         <button className="btn btn-primary float-end"  type="submit">Add Review</button>
+          <input type="text" className="form-control my-3 " style={{border:"none",borderBottom:"1px solid gray"}} onChange={handleChange} name="review" value={review.review} placeholder="Write a review" />
+         <input type="number" name="rating" value={review.rating} placeholder="Enter Rating"  className="form-control" style={{border:"none",borderBottom:"1px solid gray"}} onChange={handleChange}/>
+          </form>
+          
+{data.length>0 ?(
           <List
     itemLayout="horizontal"
     dataSource={data}
@@ -148,13 +174,29 @@ export default function ProductDeatils() {
         />
       </List.Item>
     )}
-  />
+  />):( <Empty description={"No  review in the product"} />)}
           </div>
 
-<div className="relativeProduct">
-  
-</div>
+<div className="relativeProduct mt-4">
+     <h1 className="ps-2">Relvent Products</h1>
+    
+     <div className="cardSection d-flex justify-content-around flex-wrap gap-3 mt-5"> 
+      {dresses.slice(10,13).map((item, i) => (
+            <Card key={i} item={item} onClick={()=>{
+              if(loacation.pathname === `/shop/product/${item.randomId}`){
+                navigate(`/shop/product/${item.id}`, { replace: true, state: { item } });
+              }else {
+                // Different route: navigate normally
+                navigate(`/shop/product/${item.id}`, { state: { item } });
+              }
+            }} />
+          ))
 
+      }
+     
+     
+      </div>
+</div>
 
 
     </div>
