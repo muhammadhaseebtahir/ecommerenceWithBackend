@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../../../components/card';
 import { dresses } from '../../../components/assest/cardImages/index';
 
+import {Empty}  from "antd"
 import 'remixicon/fonts/remixicon.css'
 
 import peakyBlinder from "../../../components/assest/img/peakyBlinder.png"
@@ -44,7 +45,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
             <Card key={i} item={item} onClick={()=>{navigte(`shop/product/${item.id}`,{state:{item}})}} />
           ))
         ) : (
-          <h5 className="text-center text-danger">No Products Available</h5>
+          <Empty className="text-center">No Products Available</Empty>
         )}
        
       </div>

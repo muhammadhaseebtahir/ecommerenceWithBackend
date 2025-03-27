@@ -10,11 +10,7 @@ import { useAuthContext } from "../../context/AuthContext";
 //   message.info(`Clicked on item ${key}`);
 // };
 
-const items = [
-  { label: <span className="dropItems">Womens</span>, key: "1" },
-  { label: <span className="dropItems">Mens</span>, key: "2" },
-  { label: <span className="dropItems">Others</span>, key: "3" },
-];
+
 
 
 
@@ -24,7 +20,11 @@ export default function Header() {
   const [triggerType, setTriggerType] = useState(["hover"]);
   const nameUser = user?.userName ? user.userName.slice(0, 2).toUpperCase() : "";
 
-
+  const items = [
+    { label: <span className="dropItems" ><Link to='/collection/womens' style={{textDecoration:"none"}}> Womens </Link></span>, key: "1" },
+    { label: <span className="dropItems">Mens</span>, key: "2" },
+    { label: <span className="dropItems">Others</span>, key: "3" },
+  ];
 
   const profileItems = [
     { label: <span className="dropItems">Profile</span>, key: "1" },
@@ -109,9 +109,9 @@ export default function Header() {
               </Dropdown>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link className="nav-link active" aria-current="page" >
                 Blog
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <Link to="/contact" className="nav-link active" aria-current="page" >
