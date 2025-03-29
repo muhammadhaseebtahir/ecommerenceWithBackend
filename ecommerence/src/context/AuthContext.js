@@ -58,7 +58,7 @@ export default function AuthContextProvider({ children }) {
         }
         const isAdmin = user.role.includes("admin");
         dispatch({ type: "LOGIN", payload: { user, isAdmin } });
-        navigate("/");
+        // navigate("/");
       } else {
         handleLogout();
       }
