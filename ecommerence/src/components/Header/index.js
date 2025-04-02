@@ -6,10 +6,6 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useAuthContext } from "../../context/AuthContext";
 
 
-// const onClick = ({ key }) => {
-//   message.info(`Clicked on item ${key}`);
-// };
-
 
 
 
@@ -30,7 +26,7 @@ export default function Header() {
     { label: <span className="dropItems">Profile</span>, key: "1" },
     { label: <span className="dropItems">Settings</span>, key: "2" },
     { label: <span className="dropItems" onClick={handleLogout} >Logout</span>, key: "3" },
-    { label: <span className="dropItems" >{isAdmin? "Admin" :""}</span>, key: "4" },
+    { label: <span className="dropItems" > {isAdmin? <Link to="/dashboard" style={{color:"black",textDecoration:"none"}} >Admin </Link>  :null}</span>, key: "4" },
   ];
 
   // Check screen size and update trigger type

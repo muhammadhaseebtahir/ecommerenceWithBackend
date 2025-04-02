@@ -1,28 +1,17 @@
-// import React from 'react'
-// import Index from './Routes'
-
-// export default function App() {
-//   return (
-//     <div>
-//       Home Dashboard
-//       <Index/>
-//     </div>
-//   )
-// }
-
-
-
 import React, { useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
-  PieChartOutlined,
+  HomeOutlined,
   TeamOutlined,
   UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 import Index from './Routes';
-const { Header, Content, Footer, Sider } = Layout;
+
+const { Sider } = Layout;
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -31,8 +20,9 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
+
 const items = [
-  getItem('Option 1', '1', <PieChartOutlined />),
+  getItem('Dashboard', '1', <HomeOutlined />),
   getItem('Option 2', '2', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
     getItem('Tom', '3'),
@@ -42,41 +32,50 @@ const items = [
   getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Files', '9', <FileOutlined />),
 ];
+
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        style={{
+          
+          background: '#ffffff',
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          height: '100vh',
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between', // Items upar aur logout neeche
+        }}
+      >
+        <div>
+          <div className="demo-logo-vertical "  />
+          <Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items} style={{height:"84vh",paddingTop:"10px"}}/>
+        </div>
+
+        {/* Logout Button at the Bottom */}
+        
+        <Menu
+          theme="light"
+          mode="inline"
+                   items={[
+            getItem('Logout', 'logout', <LogoutOutlined />),
+          ]}
+        />
       </Sider>
-      <Index/>
-      {/* <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Bill is a cat.
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
-      </Layout> */}
+
+      <Layout style={{  background: '#ffffff' }}>
+        <Index />
+      </Layout>
     </Layout>
   );
 };
+
 export default App;
