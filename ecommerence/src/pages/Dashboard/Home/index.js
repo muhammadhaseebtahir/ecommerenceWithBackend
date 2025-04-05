@@ -42,7 +42,7 @@ export default function Home() {
                       </div>
                       <div className="rightSide  " >
                       <i className="ri-hand-heart-line fs-3 rounded-circle p-2" style={{background:"#f8f9fa",color:"#94d2bd"}}></i>
-                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 17%</span></p>
+                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 13%</span></p>
                      
                       </div>
                       
@@ -55,11 +55,11 @@ export default function Home() {
                       <div className="leftSide">
                        <p className='mb-0'>Total Order</p>
                        <p style={{color:"#adb5bd"}}>Last 30 days</p>
-                       <h3>$82.38</h3>
+                       <h3>1645</h3>
                       </div>
                       <div className="rightSide  " >
                       <i className="ri-shopping-cart-2-line fs-3 rounded-circle p-2" style={{background:"#f8f9fa",color:"#94d2bd"}}></i>
-                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 17%</span></p>
+                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 20%</span></p>
                      
                       </div>
                       
@@ -72,11 +72,11 @@ export default function Home() {
                       <div className="leftSide">
                        <p className='mb-0'>Total Customer</p>
                        <p style={{color:"#adb5bd"}}>Last 30 days</p>
-                       <h3>$82.38</h3>
+                       <h3>1462</h3>
                       </div>
                       <div className="rightSide  " >
                       <i className="ri-user-line fs-3 rounded-circle p-2" style={{background:"#f8f9fa",color:"#94d2bd"}}></i>
-                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 17%</span></p>
+                      <p className='mt-4'><i className="ri-route-line"></i> <span style={{color:"#94d2bd"}}> 16%</span></p>
                       
                       </div>
                       
@@ -89,7 +89,7 @@ export default function Home() {
                       <div className="leftSide">
                        <p className='mb-0'>Pending Delivery</p>
                        <p style={{color:"#adb5bd"}}>Last 30 days</p>
-                       <h3>$82.38</h3>
+                       <h3>117</h3>
                       </div>
                       <div className="rightSide  " >
                       <i className="ri-truck-line fs-3 rounded-circle p-2" style={{background:"#f8f9fa",color:"#94d2bd"}}></i>

@@ -2,6 +2,7 @@ const express=require('express');
 const cors=require('cors'); 
 const bodyParser=require('body-parser');    
 const app=express();
+const addproduct= require('./routes/AddProducts');
 
 const dbConnected=require('./config/db');
 const auth=require('./routes/Auth');
@@ -18,3 +19,4 @@ app.listen(process.env.PORT,()=>{
 
 
 app.use("/auth",auth);
+app.use("/dashboard",addproduct);
