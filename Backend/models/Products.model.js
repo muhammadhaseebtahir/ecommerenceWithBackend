@@ -6,11 +6,11 @@ const ProductSchema = new schema({
         required: true,
         trim: true
     },
-    // imageUrl:{
-    //     type: String,
-    //     required: true,
-    //     trim: true
-    // },
+    imageUrl:{
+        type: String,
+        required: true,
+        trim: true
+    },
     product_id: {
         type: String,
         required: true,

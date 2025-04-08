@@ -16,10 +16,11 @@ const initialState = {
   colors: [],
   category: [],
 };
+
 export default function AddProducts() {
-  const [fileList, setFileList] = useState([]);
+  const [imageUrl, setImageUrl] = useState([]);
   const [state, setState] = useState(initialState);
-   const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleChange = (e) => {
     setState((s) => ({ ...s, [e.target.name]: e.target.value }));
@@ -33,10 +34,10 @@ export default function AddProducts() {
   };
 
   const handleUploadChange = ({ fileList }) => {
-    setFileList(fileList);
+    setImageUrl(fileList);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let {
       productName,
@@ -54,10 +55,6 @@ export default function AddProducts() {
     type = type.trim();
     description = description.trim();
 
-    // if (fileList.length === 0) {
-    //   return message.error("Please upload a product image");
-    // }
-
     if (
       !productName ||
       !brandName ||
@@ -70,20 +67,27 @@ export default function AddProducts() {
     ) {
       return message.error("All fields are required");
     }
-    if(isNaN(price) || price <= 0) {
+
+    if (isNaN(price) || price <= 0) {
       return message.error("Price must be a positive number");
     }
-    if(productName.length < 3 || brandName.length < 3) {
+
+    if (productName.length < 3 || brandName.length < 3) {
       return message.error("Product name and brand name must be at least 3 characters long");
     }
-    if(description.length < 10) {
+
+    if (description.length < 10) {
       return message.error("Description must be at least 10 characters long");
-    } 
-    // if(fileList.length > 1) {
-    //   return message.error("Please upload only one image");
-    // }
+    }
+
+    if (imageUrl.length === 0) {
+      return message.error("Please upload a product image");
+    }
+
     setIsProcessing(true);
-     const formData = {
+
+    const formData = new FormData();
+    const product = {
       productName,
       brandName,
       price,
@@ -92,28 +96,28 @@ export default function AddProducts() {
       sizes,
       colors,
       category,
-     }
-    try{
-      const reponse =await axios.post("http://localhost:8000/dashboard/addproduct",formData,{
+    };
+    formData.append("image", imageUrl[0]?.originFileObj); // Upload the first file
+    formData.append("product", product);
+   console.log("product", product);
+console.log("formData",formData);
+    try {
+      
+      const response = await axios.post("http://localhost:8000/dashboard/addproduct", formData, {
         headers: {
-        
+          // ContentType: "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
-       message.success(reponse.data.message);   
-       setState(initialState);
-       setIsProcessing(false);
-       console.log(reponse.data.product);
-       
-
-    }catch{
+      });
+      message.success(response.data.message);
+      setState(initialState);
+      setIsProcessing(false);
+    } catch {
       message.error("Error adding product");
       setIsProcessing(false);
     }
-
-    // console.log("state", state);
-    // console.log("fileList", fileList);
   };
+
   return (
     <div className="container-fluid d-flex align-items-center justify-content-center bg-light min-vh-100">
       <div className="card w-75 p-3">
@@ -237,7 +241,7 @@ export default function AddProducts() {
               <label>Product Image:</label>
               <Upload
                 listType="picture"
-                fileList={fileList}
+                fileList={imageUrl}
                 onChange={handleUploadChange}
                 beforeUpload={() => false} // Prevent auto-upload
               >
