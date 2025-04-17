@@ -7,9 +7,8 @@ const ProductSchema = new schema({
         trim: true
     },
     imageUrl:{
-        type: String,
+        type: [String],
         required: true,
-        trim: true
     },
     product_id: {
         type: String,

@@ -97,25 +97,31 @@ export default function AddProducts() {
       colors,
       category,
     };
-    formData.append("image", imageUrl[0]?.originFileObj); // Upload the first file
-    formData.append("product", product);
-   console.log("product", product);
-console.log("formData",formData);
-    try {
-      
-      const response = await axios.post("http://localhost:8000/dashboard/addproduct", formData, {
-        headers: {
-          // ContentType: "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    imageUrl.forEach(file => {
+      formData.append("image", file.originFileObj);  // Add all images to the formData
+    });
+    formData.append("product", JSON.stringify(product));
+   console.log("product", JSON.stringify(product));
+
+      axios.post("http://localhost:8000/dashboard/addproduct", formData, {
+      headers: {
+        'content-Type': "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        message.success(response.data.message);
+        setState(initialState);
+        setImageUrl([]);  // Clear the image list after successful upload
+        setIsProcessing(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        message.error("Error adding product");
+        setIsProcessing(false);
       });
-      message.success(response.data.message);
-      setState(initialState);
-      setIsProcessing(false);
-    } catch {
-      message.error("Error adding product");
-      setIsProcessing(false);
-    }
+
+
   };
 
   return (
@@ -240,13 +246,14 @@ console.log("formData",formData);
             <div className="col-12">
               <label>Product Image:</label>
               <Upload
-                listType="picture"
-                fileList={imageUrl}
-                onChange={handleUploadChange}
-                beforeUpload={() => false} // Prevent auto-upload
-              >
-                <Button icon={<UploadOutlined />}>Upload Image</Button>
-              </Upload>
+  listType="picture"
+  fileList={imageUrl}
+  onChange={handleUploadChange}
+  beforeUpload={() => false}  // Prevent automatic upload
+  maxCount={2}  // Limit to two images, as per the backend
+>
+  <Button icon={<UploadOutlined />}>Upload Image</Button>
+</Upload>
             </div>
             <div className="col-12 col-md-6 offset-md-3 text-center">
               <Button type="primary" htmlType="submit" loading={isProcessing} className="mt-3 w-100">
