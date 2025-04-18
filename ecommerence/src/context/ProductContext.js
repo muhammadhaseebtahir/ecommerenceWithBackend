@@ -24,7 +24,7 @@ export default function ProductContext({children}) {
     },[])
 
   return (
-    <ProductsContext.Provider value={{products,fetchProducts}}>
+    <ProductsContext.Provider value={{products,setProducts,fetchProducts}}>
       {children}
     </ProductsContext.Provider>
   )

@@ -62,7 +62,7 @@
       if (!products || products.length === 0) {
         return res.status(404).json({ message: "No products found" });
       }
-      console.log("products", products)
+      // console.log("products", products)
   
       res.status(200).json({ products });
     } catch (err) {
@@ -70,8 +70,48 @@
       res.status(500).json({ message: "Failed to fetch products" });
     }
   });
+    
+  router.delete("/deleteproduct/:product_id", async (req, res) => {
+    const { product_id } = req.params;
+    console.log("product_id", product_id);
+    
+    try {
+      const deleted = await Product.findOneAndDelete({ product_id });
+  
+      if (!deleted) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+  
+      res.status(200).json({ message: "Product deleted successfully" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: "Failed to delete product" });
+    }
+  });
   
 
+  router.put("/updateproduct/:product_id", async (req, res) => {
+    const { product_id } = req.params;
+    const { productName, brandName, type, price, description, sizes, colors, category } = req.body;
+    console.log("product_id", product_id);
+    
+    try {
+      const updatedProduct = await Product.findOneAndUpdate(
+        { product_id },
+        { productName, brandName, type, price, description, sizes, colors, category },
+        { new: true }
+      );
+  
+      if (!updatedProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+  
+      res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: "Failed to update product" });
+    }
+     })
 
 
 
