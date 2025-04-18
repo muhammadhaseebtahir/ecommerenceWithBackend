@@ -28,7 +28,7 @@
     }
 
     const imagePaths = req.files.map(file => file.path); // Array of image paths
-    console.log("imagePaths", imagePaths);
+    // console.log("imagePaths", imagePaths);
     try {
     const newProduct = new Product({
       userId: req.user_id,
@@ -44,7 +44,7 @@
       product_id: randomId(), 
     });
     
-    console.log("newProduct", newProduct)
+    // console.log("newProduct", newProduct)
       await newProduct.save();
       res.status(201).json({ message: 'Product added successfully', product: newProduct });
 
