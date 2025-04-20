@@ -8,7 +8,7 @@
   function randomId() {
     return Math.random().toString(36).substring(2, 15)+  Math.random().toString(36).slice(2);}
 
-  router.post("/addproduct", verifyToken,upload.array("image",2), async (req, res) => {
+  router.post("/addproduct", verifyToken,upload.array("image",3), async (req, res) => {
     const productData = JSON.parse(req.body.product);
       const {
       productName,

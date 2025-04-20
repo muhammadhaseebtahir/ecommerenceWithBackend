@@ -7,8 +7,10 @@ import 'remixicon/fonts/remixicon.css'
 
 import peakyBlinder from "../../../components/assest/img/peakyBlinder.png"
 import { useNavigate } from 'react-router-dom';
+import { useProductContext } from '../../../context/ProductContext';
 
 export default function Arrivals() {
+  const {products}= useProductContext()
   const navigte =useNavigate()
   const [collectionType, setCollectionType] = useState("Women's Cloth");
   const [filteredDresses, setFilteredDresses] = useState([]);
@@ -19,7 +21,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
 
   useEffect(() => {
     
-    const filtered = dresses.filter((item) => item.type === collectionType);
+    const filtered = products.filter((item) => item.type === collectionType);
     setFilteredDresses(filtered);
   }, [collectionType]);
 
@@ -42,7 +44,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
         <div className="cardSection d-flex justify-content-around flex-wrap gap-3 mt-5">
         {filteredDresses.length > 0 ? (
           filteredDresses.slice(0,viewMoreProduct).map((item, i) => (
-            <Card key={i} item={item} onClick={()=>{navigte(`shop/product/${item.id}`,{state:{item}})}} />
+            <Card key={i} item={item} onClick={()=>{navigte(`shop/product/${item.product_id}`,{state:{item}})}} />
           ))
         ) : (
           <Empty className="text-center">No Products Available</Empty>

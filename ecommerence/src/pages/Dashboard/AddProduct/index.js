@@ -206,7 +206,7 @@ export default function AddProducts() {
                 value={state.colors}
                 style={{ width: "100%" }}
               >
-                {["Red", "Blue", "Orange", "Black", "Green", "Yellow"].map(
+                {["Red", "Blue","white", "gray","maroon","navy","olive","purple","lime", "Black", "Green", "Yellow","pink","hotpink","lightpink"].map(
                   (color) => (
                     <Option key={color} value={color}>
                       {color}
@@ -250,7 +250,7 @@ export default function AddProducts() {
   fileList={imageUrl}
   onChange={handleUploadChange}
   beforeUpload={() => false}  // Prevent automatic upload
-  maxCount={2}  // Limit to two images, as per the backend
+  maxCount={3}  // Limit to two images, as per the backend
 >
   <Button icon={<UploadOutlined />}>Upload Image</Button>
 </Upload>

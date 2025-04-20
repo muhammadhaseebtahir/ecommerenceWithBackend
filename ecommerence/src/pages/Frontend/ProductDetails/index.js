@@ -5,12 +5,21 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { dresses } from '../../../components/assest/cardImages/index';
 import Card from "../../../components/card";
+import { useProductContext } from "../../../context/ProductContext";
+
+
+
 const initialReview = {
   review: "", rating: ""}
+
+
+
+
 export default function ProductDeatils() {
+  const {products} = useProductContext()
       const navigate = useNavigate()
-    const loacation = useLocation();
-  const { item } = loacation.state;
+    const location = useLocation();
+  const { item } = location.state;
   const [selectedSize, setSelectedSize] = useState(null);
   const [review, setReview] = useState(initialReview);
   // const [Isprocessing,setIsProcessing] = useState(false);
@@ -67,49 +76,49 @@ export default function ProductDeatils() {
         <div className="verticalImages  d-flex flex-md-row flex-lg-column gap-2">
           <div className="verticalImage ">
             <Image
-              src={item.urlImage}
+              src={item.imageUrl[2]}
               alt="Product Details"
               className="verticalImageSize"
             />
           </div>
           <div className="verticalImage">
             <Image
-              src={item.urlImage}
+              src={item.imageUrl[1]}
               alt="Product Details"
               className="verticalImageSize"
             />
           </div>
           <div className="verticalImage">
             <Image
-              src={item.urlImage}
+              src={item.imageUrl[0]}
               alt="Product Details"
               className="verticalImageSize"
             />
           </div>
         </div>
         <div
-          className="horizontalImage  rounded-2"
-          style={{ overflow: "hidden" }}
+          className="horizontalImage bg-danger rounded-2"
+          style={{ overflow: "hidden",objectFit:"cover" }}
         >
           <Image
-            src={item.urlImage}
+            src={item.imageUrl[1]}
             alt="Product Details"
             className="horizontalImageSize h-100 w-100"
-            style={{ objectFit: "cover" ,height:"100%"}}
+            style={{ objectFit: "cover",backgroundSize:"cover" ,height:"100%"}}
           />
         </div>
         <div className="productDetailsData p-3" style={{ flex: "25%" }}>
           <h3 style={{ fontWeight: "900", textShadow: "1px 1px 10px gray" }}>
-            {item.name}
+            {item.productName}
           </h3>
-          <p style={{ fontSize: "20px", fontWeight: "600" }}>{item.price}</p>
+          <p style={{ fontSize: "20px", fontWeight: "600" }}>{item.price}$</p>
           <p style={{ fontSize: "13px", color: "#6c757d" }}>
             {item.description}
           </p>
           <Rate
             style={{ fontSize: "18px" }}
             allowHalf
-            defaultValue={item.rating}
+            defaultValue={4.5}
           />
           <hr style={{ color: "#adb5bd" }} />
           <p
@@ -118,7 +127,7 @@ export default function ProductDeatils() {
             Choose Size
           </p>
           <Space>
-            {["Small", "Medium", "Large"].map((size, i) => (
+            {item.sizes.map((size, i) => (
               <button
                 key={i}
                 className={`btn selectSize  px-3 ${
@@ -181,13 +190,13 @@ export default function ProductDeatils() {
      <h1 className="ps-2">Relvent Products</h1>
     
      <div className="cardSection d-flex justify-content-around flex-wrap gap-3 mt-5"> 
-      {dresses.slice(10,13).map((item, i) => (
+      {products.map((item, i) => (
             <Card key={i} item={item} onClick={()=>{
-              if(loacation.pathname === `/shop/product/${item.randomId}`){
-                navigate(`/shop/product/${item.id}`, { replace: true, state: { item } });
+              if(location.pathname === `/shop/product/${item.product_id}`){
+                navigate(`/shop/product/${item.product_id}`, { replace: true, state: { item } });
               }else {
                 // Different route: navigate normally
-                navigate(`/shop/product/${item.id}`, { state: { item } });
+                navigate(`/shop/product/${item.product_id}`, { state: { item } });
               }
             }} />
           ))
