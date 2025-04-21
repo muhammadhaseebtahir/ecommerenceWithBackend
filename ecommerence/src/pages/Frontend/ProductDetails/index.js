@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Image, Rate, Space, Button, Avatar, List,Empty  } from "antd";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined,CheckOutlined  } from "@ant-design/icons";
 
-import { dresses } from '../../../components/assest/cardImages/index';
+// import { dresses } from '../../../components/assest/cardImages/index';
 import Card from "../../../components/card";
 import { useProductContext } from "../../../context/ProductContext";
 
@@ -21,8 +21,10 @@ export default function ProductDeatils() {
     const location = useLocation();
   const { item } = location.state;
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor,setSelectedColor]=useState(null)
   const [review, setReview] = useState(initialReview);
-  // const [Isprocessing,setIsProcessing] = useState(false);
+  const [isLoading,setIsLoading] = useState(false);
+  const [quantity,setQuantity] = useState(1)
 
   useEffect(() => {
     window.scrollTo(0, 0); // ✅ Always scroll to top when route changes
@@ -36,9 +38,22 @@ export default function ProductDeatils() {
 
    const handleSubmit = (e)=>{
     e.preventDefault();
+
      
       setReview(initialReview)
    }
+
+
+      const handleAddtoCart=async()=>{
+        setIsLoading(true)
+        
+
+
+
+
+
+      }
+
 
 
 
@@ -140,12 +155,48 @@ export default function ProductDeatils() {
               </button>
             ))}
           </Space>
+          <p
+  style={{ color: "#6c757d", fontSize: "14px", marginBottom: "5px", marginTop: "15px" }}
+>
+  Choose Color
+</p>
+<Space>
+  {item.colors.map((color, i) => (
+    <div
+      key={i}
+      onClick={() => setSelectedColor(color)}
+      style={{
+        backgroundColor: color,
+        border: selectedColor === color ? "2px solid black" : "1px solid #ccc",
+        width: "35px",
+        height: "35px",
+        borderRadius: "50%",
+        cursor: "pointer",
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {selectedColor === color && (
+        <CheckOutlined
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+        />
+      )}
+    </div>
+  ))}
+</Space>
+
           <hr style={{ color: "#adb5bd" }} />
           <Space className="p-0 p-md-3 d-flex flex-wrap">
             <Space.Compact>
-              <Button className="p-3" icon={<MinusOutlined />} />
-              <Button className="p-3">1</Button>
-              <Button className="p-3" icon={<PlusOutlined />} />
+            <Button className="p-3" icon={<MinusOutlined />} onClick={()=> quantity>1 ? setQuantity(quantity-1): null } />
+              <Button className="p-3">{quantity}</Button>
+              <Button className="p-3" icon={<PlusOutlined />} onClick={()=>setQuantity(quantity+1)} />
             </Space.Compact>
 
             <button

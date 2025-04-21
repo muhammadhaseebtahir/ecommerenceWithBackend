@@ -3,9 +3,11 @@ import {Checkbox,Slider,Collapse,Empty} from "antd"
 import { dresses } from '../../../../components/assest/cardImages/index';
 import Card from '../../../../components/card';
 import { useNavigate } from 'react-router-dom';
+import { useProductContext } from '../../../../context/ProductContext';
  
 
 export default function Womens() {
+  const {products} = useProductContext()
   const navigate =useNavigate()
 
 const [selectedCategories, setSelectedCategories] = useState([]);
@@ -127,9 +129,9 @@ console.log("priceRange",priceRange);
        </div>
        <div className="mainSide  p-4" style={{flex:"75%"}} >
        <div className="cardSection d-flex justify-content-around flex-wrap gap-3 mt-5">
-          {dresses.length >0 ?(
-            dresses.map((item,i)=>(
-                          <Card key={i} item={item} onClick={()=>{navigate(`shop/product/${item.id}`,{state:{item}})}} />
+          {products.length >0 ?(
+            products.map((item,i)=>(
+                          <Card key={i} item={item} onClick={()=>{navigate(`/shop/product/${item.product_id}`,{state:{item}})}} />
               
             ))):(
 

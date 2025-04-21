@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const { Title, Paragraph } = Typography
 const { TextArea } = Input
-const { Option } = Select
+// const { Option } = Select
 
 export default function ShowTableData() {
   const { products, setProducts, fetchProducts } = useProductContext()
@@ -133,7 +133,7 @@ export default function ShowTableData() {
           dataSource={products.map((p) => ({ ...p, key: p._id }))}
           loading={loading}
           bordered
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 7 }}
           scroll={{ x: "max-content" }}
         />
       )}

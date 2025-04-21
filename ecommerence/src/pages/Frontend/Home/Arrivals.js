@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../../components/card';
-import { dresses } from '../../../components/assest/cardImages/index';
+// import { dresses } from '../../../components/assest/cardImages/index';
 
 import {Empty}  from "antd"
 import 'remixicon/fonts/remixicon.css'

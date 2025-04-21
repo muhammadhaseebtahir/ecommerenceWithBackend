@@ -20,7 +20,7 @@
       colors,
       category
     } = productData
-  console.log("productData", productData)
+  // console.log("productData", productData)
 
     // Validate the data
     if (!productName || !brandName || !price || !type || !description || sizes.length === 0 || colors.length === 0 || category.length === 0) {
