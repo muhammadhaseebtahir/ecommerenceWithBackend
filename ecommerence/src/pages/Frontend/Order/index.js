@@ -1,25 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import {Button, Image,Space, Empty, Input} from "antd"
 import { DeleteOutlined, MinusOutlined, PlusOutlined ,TagOutlined,ArrowRightOutlined} from "@ant-design/icons";
 
 import {dresses} from "../../../components/assest/cardImages/index"
+import axios from 'axios';
  
 
 export default function Order() {
+    const [cartData,setCartData] = useState([])
+   useEffect( ()=>{
+    const fectCart= async()=>{ 
+    try{
+          const res = await axios.get("http://localhost:8000/cart/getCart",{
+            headers:{
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          })
+          // console.log("res",res.data.cart)
+          setCartData(res.data.cart.items)
 
+        }catch(err){
+          console.log("err",err)
+        }}
+        fectCart()
+   },[])
 
+  const totalPrice = cartData.reduce((acc, item) => {return acc + item.price}, 0);
 
-  // const totalPrice = dresses.slice(0,4).reduce((acc, item) => {return acc + item.price}, 0);
-//  console.log("totalPrice",totalPrice);
-
-let totalPrice = (dresses?.slice(0, 2) || []).reduce(
-  (acc, item) => acc + parseFloat(item.price.replace("$", "") || 0),
-  0
-);
-
-totalPrice= totalPrice.toFixed(2);
  
  
   return (
@@ -31,12 +40,14 @@ totalPrice= totalPrice.toFixed(2);
           <div className="cartProduct border p-3 rounded-5" style={{flex:"40%"}}>
             {dresses.length>0 ?(
           
-            dresses.slice(0,2).map((item,i)=>(
+          cartData.map((item,i)=>(
               <div  key={i}>
               <div className="d-flex p-2"
               style={{ outline: "none", border: "none" }}>
                  <Image
-                  src={item.urlImage}
+                  src={item.imageUrl[0]}
+                  alt="product"
+                  preview={false}
                   width={130}
                   height={100}
                   className="rounded-3"
@@ -46,23 +57,23 @@ totalPrice= totalPrice.toFixed(2);
                 <div className="productData d-flex justify-content-between w-100">
                 <div className="leftSide py-1 px-3">
                     <p className="mb-0 fw-bold " style={{ fontSize: "14px" }}>
-                      {item.name}
+                      {item.productName}
                     </p>
-                    {/* <p
+                    <p
                       className="mb-0"
                       style={{ fontSize: "12px", color: "#ced4da" }}
                     >
                       {" "}
                       <span style={{ color: "#6c757d" }}>Size:</span>{" "}
-                      {item.selectedSize}{" "}
-                    </p> */}
-                    {/* <p style={{ fontSize: "12px", color: "#ced4da" }}>
+                      {item.size}{" "}
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#ced4da" }}>
                       {" "}
                       <span style={{ color: "#6c757d" }}>Color:</span>{" "}
-                      {item.selectedColor}{" "}
-                    </p> */}
+                      {item.color}{" "}
+                    </p>
                     <p className="mb-0 fw-bold" style={{ fontSize: "15px" }}>
-                      {item.price}
+                      ${item.price}
                     </p>
                   </div>
                   <div className="rightSide  d-flex flex-end flex-column justify-content-between">
@@ -99,9 +110,9 @@ totalPrice= totalPrice.toFixed(2);
           </div>
           <div className="AmountBox border p-5 rounded-5" style={{flex:"40%"}}>
                   <h5>Order Sumery</h5>
-                  {dresses.slice(0,2).map((item, index) => (
+                  {cartData.map((item, index) => (
         <div className="subTotal d-flex justify-content-between" key={index}>
-          <p style={{ color: "#adb5bd" }}>{item.name}:</p>
+          <p style={{ color: "#adb5bd" }}>{item.productName}:</p>
           <p>{item.price }</p>
         </div>
       ))}

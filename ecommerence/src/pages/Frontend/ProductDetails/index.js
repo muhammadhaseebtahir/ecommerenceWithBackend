@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Image, Rate, Space, Button, Avatar, List,Empty  } from "antd";
+import { Image, Rate, Space, Button, Avatar, List,Empty, message  } from "antd";
 import { MinusOutlined, PlusOutlined,CheckOutlined  } from "@ant-design/icons";
 
 // import { dresses } from '../../../components/assest/cardImages/index';
 import Card from "../../../components/card";
 import { useProductContext } from "../../../context/ProductContext";
+import { useAuthContext } from "../../../context/AuthContext";
+import axios from "axios";
 
 
 
@@ -16,7 +18,8 @@ const initialReview = {
 
 
 export default function ProductDeatils() {
-  const {products} = useProductContext()
+  const {products,fetchProducts} = useProductContext()
+  const {isAuthenticated} = useAuthContext()
       const navigate = useNavigate()
     const location = useLocation();
   const { item } = location.state;
@@ -28,6 +31,7 @@ export default function ProductDeatils() {
 
   useEffect(() => {
     window.scrollTo(0, 0); // ✅ Always scroll to top when route changes
+    fetchProducts()
   }, [location.pathname]);
 
   const handleChange = (e) => {
@@ -43,18 +47,60 @@ export default function ProductDeatils() {
       setReview(initialReview)
    }
 
+   const handleAddtoCart = async (item) => {
+    if (!isAuthenticated) {
+        return message.error("Please login to add product to cart");
+    }
 
-      const handleAddtoCart=async()=>{
-        setIsLoading(true)
-        
+    if (!selectedSize || !selectedColor) {
+        return message.error("Please select size and color");
+    }
+
+    const {
+        product_id, productName, imageUrl,
+        price, description, brandName, type, category
+    } = item;
+
+    const data = {
+        product_id,
+        productName,
+        imageUrl,
+        price,
+        description,
+        brandName,
+        type,
+        category,
+        selectedSize,
+        selectedColor,
+        quantity
+    };
+
+    setIsLoading(true);
+
+    try {
+        const res = await axios.post("http://localhost:8000/cart/addtoCart", data, {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (res.status === 200 || res.status === 201) {
+            message.success(res.data.message);
+        }
+    } catch (err) {
+        console.error("Something went wrong to add product", err);
+        message.error("Something went wrong to add product");
+    } finally {
+        setIsLoading(false);
+        setQuantity(1)
+        setSelectedColor(null)
+        setSelectedSize(null)
+    }
+   
 
 
 
-
-
-      }
-
-
+};
 
 
   
@@ -199,10 +245,10 @@ export default function ProductDeatils() {
               <Button className="p-3" icon={<PlusOutlined />} onClick={()=>setQuantity(quantity+1)} />
             </Space.Compact>
 
-            <button
-              className="btn btn-dark  text-light px-4 px-md-5 " onClick={()=>alert("hello")} >
+            <Button
+              className="shadow bg-dark text-light px-4 px-md-5 " color="default" loading={isLoading} onClick={()=>handleAddtoCart(item)} >
               Add to cart
-            </button>
+            </Button>
             
           </Space>
 

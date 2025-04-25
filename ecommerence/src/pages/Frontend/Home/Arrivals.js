@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useProductContext } from '../../../context/ProductContext';
 
 export default function Arrivals() {
-  const {products}= useProductContext()
+  const {products,fetchProducts}= useProductContext()
   const navigte =useNavigate()
   const [collectionType, setCollectionType] = useState("Women's Cloth");
   const [filteredDresses, setFilteredDresses] = useState([]);
@@ -20,10 +20,10 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
 // console.log("dress",filteredDresses);
 
   useEffect(() => {
-    
+    fetchProducts()
     const filtered = products.filter((item) => item.type === collectionType);
     setFilteredDresses(filtered);
-  }, [collectionType]);
+  }, [collectionType,fetchProducts]);
 
   return (
     <div className="container">
