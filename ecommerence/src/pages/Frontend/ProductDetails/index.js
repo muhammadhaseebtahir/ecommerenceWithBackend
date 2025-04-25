@@ -26,12 +26,15 @@ export default function ProductDeatils() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor,setSelectedColor]=useState(null)
   const [review, setReview] = useState(initialReview);
+  const [reviewData,setReviewData] = useState([]) 
+  const [isReviewLoading,setIsReviewLoading] = useState(false)
   const [isLoading,setIsLoading] = useState(false);
   const [quantity,setQuantity] = useState(1)
 
   useEffect(() => {
     window.scrollTo(0, 0); // ✅ Always scroll to top when route changes
     fetchProducts()
+    getReviews()
   }, [location.pathname]);
 
   const handleChange = (e) => {
@@ -40,12 +43,58 @@ export default function ProductDeatils() {
     
   };
 
-   const handleSubmit = (e)=>{
-    e.preventDefault();
+const getReviews= async()=>{
+  try{
+    const res = await axios.get(`http://localhost:8000/review/getReviews/${item.product_id}`)
+    console.log("res",res.data.reviews)
+    if(res.status === 200 || res.status === 201){
+      setReviewData(res.data.reviews)
+    }
+  }catch(err){
+    message.error("Something went wrong to get reviews")  
+    console.error("err",err)
+  }
+}
 
-     
-      setReview(initialReview)
-   }
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!review.review || !review.rating) {
+    return message.error("Please fill all fields");
+  }
+
+  setIsReviewLoading(true);
+
+  const { review: reviewText, rating } = review;
+  const data = {
+    product_id: item.product_id,
+    review: reviewText,
+    rating,
+  };
+
+  try {
+    const res = await axios.post("http://localhost:8000/review/addReview", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (res.status === 200 || res.status === 201) {
+      message.success(res.data.message);
+      setReview(initialReview);       // ✅ Clear form
+      getReviews();                   // ✅ Refresh review list
+    }
+  } catch (err) {
+    console.error("err", err);
+    return message.error("Something went wrong to add review");
+  } finally {
+    setIsReviewLoading(false);        // ✅ Should be false
+  }
+};
+
+
+
 
    const handleAddtoCart = async (item) => {
     if (!isAuthenticated) {
@@ -264,17 +313,17 @@ export default function ProductDeatils() {
          <input type="number" name="rating" value={review.rating} placeholder="Enter Rating"  className="form-control" style={{border:"none",borderBottom:"1px solid gray"}} onChange={handleChange}/>
           </form>
           
-{data.length>0 ?(
+{reviewData.length>0 ?(
           <List
     itemLayout="horizontal"
-    dataSource={data}
+    dataSource={reviewData}
     renderItem={(item, index) => (
       <List.Item>
         <List.Item.Meta
           avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-          title={<p>{item.title}</p>}
-          description={<>  <Rate style={{ fontSize: "15px" }} allowHalf defaultValue={3} />
-            <p>Ant Design, a design language for background applications, is refined by Ant UED Team</p>
+          title={<p>{item.userName}</p>}
+          description={<>  <Rate style={{ fontSize: "15px" }} allowHalf defaultValue={item.rating} />
+            <p>{item.review}</p>
           </>}
         
         />
