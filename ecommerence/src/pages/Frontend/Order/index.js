@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import {Button, Image,Space, Empty, Input} from "antd"
 import { DeleteOutlined, MinusOutlined, PlusOutlined ,TagOutlined,ArrowRightOutlined} from "@ant-design/icons";
 
-import {dresses} from "../../../components/assest/cardImages/index"
+// import {dresses} from "../../../components/assest/cardImages/index"
 import axios from 'axios';
  
 
@@ -38,7 +38,7 @@ export default function Order() {
       </h1>
             <div className="d-flex flex-wrap  justify-content-between flex-column flex-md-row gap-5"  >
           <div className="cartProduct border p-3 rounded-5" style={{flex:"40%"}}>
-            {dresses.length>0 ?(
+            {cartData.length>0 ?(
           
           cartData.map((item,i)=>(
               <div  key={i}>
@@ -110,12 +110,15 @@ export default function Order() {
           </div>
           <div className="AmountBox border p-5 rounded-5" style={{flex:"40%"}}>
                   <h5>Order Sumery</h5>
-                  {cartData.map((item, index) => (
+                  {cartData.length>0  ?(
+                  cartData.map((item, index) => (
         <div className="subTotal d-flex justify-content-between" key={index}>
           <p style={{ color: "#adb5bd" }}>{item.productName}:</p>
           <p>{item.price }</p>
         </div>
-      ))}
+      ))):
+      (  <Empty description={"No items in cart"} />)
+      }
       <hr />
       <div className="subTotal d-flex justify-content-between">
         <p>Total:</p>

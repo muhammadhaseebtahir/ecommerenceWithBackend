@@ -27,13 +27,15 @@ export default function ProductDeatils() {
   const [selectedColor,setSelectedColor]=useState(null)
   const [review, setReview] = useState(initialReview);
   const [reviewData,setReviewData] = useState([]) 
-  const [isReviewLoading,setIsReviewLoading] = useState(false)
+  // const [isReviewLoading,setIsReviewLoading] = useState(false)
   const [isLoading,setIsLoading] = useState(false);
   const [quantity,setQuantity] = useState(1)
 
   useEffect(() => {
     window.scrollTo(0, 0); // ✅ Always scroll to top when route changes
     fetchProducts()
+    setReviewData([]); 
+  
     getReviews()
   }, [location.pathname]);
 
@@ -51,7 +53,7 @@ const getReviews= async()=>{
       setReviewData(res.data.reviews)
     }
   }catch(err){
-    message.error("Something went wrong to get reviews")  
+   
     console.error("err",err)
   }
 }
@@ -64,7 +66,7 @@ const handleSubmit = async (e) => {
     return message.error("Please fill all fields");
   }
 
-  setIsReviewLoading(true);
+  // setIsReviewLoading(true);
 
   const { review: reviewText, rating } = review;
   const data = {
@@ -81,15 +83,15 @@ const handleSubmit = async (e) => {
     });
 
     if (res.status === 200 || res.status === 201) {
-      message.success(res.data.message);
-      setReview(initialReview);       // ✅ Clear form
-      getReviews();                   // ✅ Refresh review list
+            setReview(initialReview);
+      getReviews();                   
     }
   } catch (err) {
-    console.error("err", err);
-    return message.error("Something went wrong to add review");
+    return console.error("err", err);
+
+   
   } finally {
-    setIsReviewLoading(false);        // ✅ Should be false
+    // setIsReviewLoading(false);       
   }
 };
 
