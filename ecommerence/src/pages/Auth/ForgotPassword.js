@@ -66,7 +66,7 @@ export default function ForgotPassword() {
 
     setIsProcessing(true);
     axios
-      .post("http://localhost:8000/auth/forgot-password", {
+      .post("https://ecommerence-backend-9kv6.vercel.app/auth/forgot-password", {
         email,
         newPassword,
       })

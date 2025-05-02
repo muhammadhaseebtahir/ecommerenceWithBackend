@@ -32,6 +32,19 @@ router.post('/addReview', verifyToken, async (req, res) => {
  }
 })
 
+router.get("/getAllReviews", async (req, res) => {
+  try{
+    const reviewsData= await  Review.find()
+    if(!reviewsData){
+     return  res.status(404).json({message:"Reviews not found."})
+          }
+          res.status(200).json({message:"All reviews get successFully get.",reviewsAll:reviewsData})
+    
+  }catch(err){
+    console.err(err)
+    return res.status(500).json({message:"Internal server error"})
+  }
+})
 
 router.get("/getReviews/:product_id", async (req, res) => {
     const { product_id } = req.params;
@@ -47,12 +60,33 @@ router.get("/getReviews/:product_id", async (req, res) => {
         return res.status(404).json({ message: "No reviews found" });
       }
   
-      return res.status(200).json({ message: "Reviews fetched successfully", reviews });
+      return res.status(201).json({ message: "Reviews fetched successfully", reviews });
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ message: "Error fetching reviews" });
+      return res.status(501).json({ message: "Error fetching reviews" });
     }
   });
   
+router.delete("/deleteReview/:_id",async(req,res)=>{
+  const {_id}= req.params
+ if(!_id){
+    return res.status(400).json({message:"Review id is required."})
+  }
+  try{
+    const review = await Review.findByIdAndDelete(_id)
+    if(!review){
+      return res.status(404).json({message:"Review not found."})
+    }
+    return res.status(200).json({message:"Review deleted successfully",review})
 
+
+  }catch(err){
+    console.error(err)
+    return res.status(500).json({message:"Error deleting review"})
+
+  }
+
+
+
+})
 module.exports= router

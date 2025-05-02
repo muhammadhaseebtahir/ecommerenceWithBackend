@@ -44,7 +44,7 @@ export default function AuthContextProvider({ children }) {
   const setUserFromToken = useCallback(async (token) => {
     setIsAppLoading(true);
     try {
-      const response = await axios.get("http://localhost:8000/auth/user", {
+      const response = await axios.get("https://ecommerence-backend-9kv6.vercel.app/auth/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -37,7 +37,7 @@ export default function ShowTableData() {
 
   const handleUpdate = async (values) => {
     try {
-      const res = await axios.put(`http://localhost:8000/dashboard/updateproduct/${selectedProduct.product_id}`, values)
+      const res = await axios.put(`https://ecommerence-backend-9kv6.vercel.app/dashboard/updateproduct/${selectedProduct.product_id}`, values)
       message.success(res.data.message || 'Product updated successfully')
       setIsModalVisible(false)
       fetchProducts()
@@ -54,7 +54,7 @@ export default function ShowTableData() {
       cancelText: "Cancel",
       onOk: async () => {
         try {
-          const res = await axios.delete(`http://localhost:8000/dashboard/deleteproduct/${product_id}`);
+          const res = await axios.delete(`https://ecommerence-backend-9kv6.vercel.app/dashboard/deleteproduct/${product_id}`);
           message.success(res.data.message);
           fetchProducts();
           setProducts((prev) => prev.filter((p) => (p.product_id !== product_id)))

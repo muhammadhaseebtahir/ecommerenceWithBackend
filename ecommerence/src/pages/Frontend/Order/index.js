@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 
 
-import {Button, Image,Space, Empty, Input} from "antd"
+import {Button, Image,Space, Empty, Input, message,Modal} from "antd"
 import { DeleteOutlined, MinusOutlined, PlusOutlined ,TagOutlined,ArrowRightOutlined} from "@ant-design/icons";
 
 // import {dresses} from "../../../components/assest/cardImages/index"
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
  
 
 export default function Order() {
     const [cartData,setCartData] = useState([])
+    const navigate =useNavigate()
    useEffect( ()=>{
     const fectCart= async()=>{ 
     try{
-          const res = await axios.get("http://localhost:8000/cart/getCart",{
+          const res = await axios.get("https://ecommerence-backend-9kv6.vercel.app/cart/getCart",{
             headers:{
               Authorization: `Bearer ${localStorage.getItem("token")}`
             }
@@ -27,9 +29,52 @@ export default function Order() {
         fectCart()
    },[])
 
-  const totalPrice = cartData.reduce((acc, item) => {return acc + item.price}, 0);
 
- 
+
+ const handleDeleteProduct=async(product_id)=>{
+Modal.confirm({
+  title: "Are you sure to delete this product?",
+  okText: "Delete",
+  cancelText: "Cancel",
+  onOk: async () => {
+    try {
+      const res = await axios.delete(`http://localhost:8000/cart/removeFromCart/${product_id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      if (res.status === 200) {
+        setCartData(prevData => prevData.filter(item => item.product_id !== product_id));
+        message.success(res.data.message);
+      }
+      if (res.status === 404) {
+        message.error(res.data.message);
+      }
+    } catch (err) {
+      console.log("err", err);
+      message.error("Error deleting product");
+    }
+  }
+})
+
+
+   
+
+
+ }
+
+
+
+
+  let totalPrice = cartData.reduce((acc, item) => {return acc + item.price}, 0);
+
+  totalPrice = totalPrice.toFixed(2)
+
+
+
+
+
+
  
   return (
     <div className='container px-0'>
@@ -79,7 +124,7 @@ export default function Order() {
                   <div className="rightSide  d-flex flex-end flex-column justify-content-between">
                     <Button
                       style={{ color: "red", border: "none", fontSize: "18px" }}
-                      // onClick={() => removeFromCart(item.id)}
+                      onClick={() => handleDeleteProduct(item.product_id)}
                     >
                       <DeleteOutlined />
                     </Button>
@@ -135,7 +180,7 @@ export default function Order() {
 
               </div>  
               <div className="text-center mt-3">
-        <button className='btn btn-dark rounded-5 px-5 '>Go to Checkout <ArrowRightOutlined /></button>
+        <button className='btn btn-dark rounded-5 px-5 ' onClick={()=>navigate("/CheckoutForm")}>Go to Checkout <ArrowRightOutlined /></button>
                 
                 </div>  
           </div>

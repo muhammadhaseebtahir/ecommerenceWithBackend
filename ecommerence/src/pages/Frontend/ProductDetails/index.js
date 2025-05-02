@@ -47,7 +47,7 @@ export default function ProductDeatils() {
 
 const getReviews= async()=>{
   try{
-    const res = await axios.get(`http://localhost:8000/review/getReviews/${item.product_id}`)
+    const res = await axios.get(`https://ecommerence-backend-9kv6.vercel.app/review/getReviews/${item.product_id}`)
     console.log("res",res.data.reviews)
     if(res.status === 200 || res.status === 201){
       setReviewData(res.data.reviews)
@@ -61,6 +61,9 @@ const getReviews= async()=>{
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  if(!isAuthenticated) {
+    return message.error("Please login to add review");
+  }
 
   if (!review.review || !review.rating) {
     return message.error("Please fill all fields");
@@ -76,7 +79,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const res = await axios.post("http://localhost:8000/review/addReview", data, {
+    const res = await axios.post("https://ecommerence-backend-9kv6.vercel.app/review/addReview", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -91,6 +94,7 @@ const handleSubmit = async (e) => {
 
    
   } finally {
+    setReview(initialReview);
     // setIsReviewLoading(false);       
   }
 };
@@ -129,7 +133,7 @@ const handleSubmit = async (e) => {
     setIsLoading(true);
 
     try {
-        const res = await axios.post("http://localhost:8000/cart/addtoCart", data, {
+        const res = await axios.post("https://ecommerence-backend-9kv6.vercel.app/cart/addtoCart", data, {
           headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -142,12 +146,12 @@ const handleSubmit = async (e) => {
         console.error("Something went wrong to add product", err);
         message.error("Something went wrong to add product");
     } finally {
-        setIsLoading(false);
-        setQuantity(1)
-        setSelectedColor(null)
-        setSelectedSize(null)
+      setQuantity(1)
+      setSelectedColor(null)
+      setSelectedSize(null)
     }
-   
+    
+    setIsLoading(false);
 
 
 
@@ -308,7 +312,7 @@ const handleSubmit = async (e) => {
       </div>
 
         <div className="reviewSection mt-3 p-2 border rounded-2">
-          <p className="fw-bold p-3">All Reviews  {`(${data.length})`} </p>
+          <p className="fw-bold p-3">All Reviews  {`(${reviewData.length})`} </p>
           <form onSubmit={handleSubmit}>
          <button className="btn btn-primary float-end"  type="submit">Add Review</button>
           <input type="text" className="form-control my-3 " style={{border:"none",borderBottom:"1px solid gray"}} onChange={handleChange} name="review" value={review.review} placeholder="Write a review" />

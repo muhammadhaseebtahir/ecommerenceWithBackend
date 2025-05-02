@@ -9,7 +9,7 @@ export default function ProductContext({children}) {
 
    const fetchProducts=async()=>{
      try{
-      const res=  await axios.get("http://localhost:8000/dashboard/getproducts")
+      const res=  await axios.get("https://ecommerence-backend-9kv6.vercel.app/dashboard/getproducts")
         setProducts(res.data.products)
         // console.log("products", res.data.products)
     }

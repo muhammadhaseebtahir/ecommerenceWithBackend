@@ -74,6 +74,35 @@ try{
 
 
  })
+
+router.delete("/removeFromCart/:product_id",verifyToken,async(req,res)=>{
+    const {product_id}=req.params
+    const userId=req.user_id
+     
+    try{
+        const  cart= await Cart.findOne({userId})
+        if(!cart){
+            return res.status(404).json({message:"Cart not Found"})
+            }
+            const productIndex= cart.items.findIndex((items)=>items.product_id===product_id)
+            if(productIndex===-1){
+                return res.status(404).json({message:"Product not found in cart"})
+            }
+            cart.items.splice(productIndex,1)
+       await cart.save()
+       return res.status(200).json({message:"Product removed from cart",cart})
+
+    }catch(err){
+        console.error(err)
+        return res.status(500).json({message:"Error removing product from cart"})
+    }
+    
+
+
+
+
+})
+
    
 
 

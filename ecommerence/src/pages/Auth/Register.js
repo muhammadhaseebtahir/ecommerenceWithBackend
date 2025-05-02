@@ -60,7 +60,7 @@ export default function Register() {
 
     setIsProcessing(true);
     axios
-      .post("http://localhost:8000/auth/register", {
+      .post("https://ecommerence-backend-9kv6.vercel.app/auth/register", {
         userName,
         email,
         password,

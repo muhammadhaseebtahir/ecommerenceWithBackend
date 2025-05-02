@@ -8,6 +8,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import Order from './Order'
 import Womens from './Collection/Womens'
+import CheckoutForm from './checkOutForm'
 
 export default function index() {
   return (
@@ -25,6 +26,7 @@ export default function index() {
       <Route path='/contact' element={<Contact/>} />
       <Route path='/collection/womens' element={<Womens/>} />
       <Route path='/shop/product/:id' element={<ProductDetails/>} />
+      <Route path='/CheckoutForm' element={<CheckoutForm/>} />
 
     </Routes>
 

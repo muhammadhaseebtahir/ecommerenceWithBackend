@@ -36,7 +36,7 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
         <div className="collectionButton mt-5 d-flex justify-content-around flex-wrap align-items-center">
           <button className='btn shadow px-3 collectionBtn' onClick={() => setCollectionType("Men's Cloth")}>Men's Collection</button>
           <button className='btn shadow px-3 collectionBtn ' onClick={() => setCollectionType("Women's Cloth")}>Women's Collection</button>
-          <button className='btn shadow px-3 collectionBtn' onClick={() => setCollectionType("Men's Accessories")}>Men's Accessories</button>
+          <button className='btn shadow px-3 mt-2 collectionBtn' onClick={() => setCollectionType("Men's Accessories")}>Men's Accessories</button>
           <button className='btn shadow px-3 my-2 my-md-0 collectionBtn' onClick={() => setCollectionType("Women's Accessories")}>Women Accessories</button>
           <button className='btn shadow px-3 my-2 my-lg-0 collectionBtn' onClick={() => setCollectionType("Discount Deals")}>Discount Deals</button>
         </div>
@@ -96,10 +96,10 @@ const [viewMoreProduct,setViewMoreProduct]= useState(6)
       </div>
      </div>
      <div className="highQuality  px-0 w-100 py-4 d-flex justify-content-around align-items-center flex-wrap mt-5 gap-5"  style={{boxShadowBottom:""}}>
-      <p className=''><i className="ri-store-2-fill fs-4"></i> High Quality <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>crafted from top material</span></p>
-      <p className=''><i className="ri-gift-2-line fs-4"></i>  Warranty Protection<br /> <span  style={{fontSize:"14px",color:"#6c757d"}}>Over 2 year</span></p>
-      <p className=''> <i className="ri-store-2-line fs-4"></i>Free Shipping <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>oreder Over 150$</span></p>
-      <p className=''><i className="ri-phone-fill fs-4"></i> 24 / 7 Support <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>Dedicated Support</span></p>
+      <p ><i className="ri-store-2-fill fs-4"></i> High Quality <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>crafted from top material</span></p>
+      <p ><i className="ri-gift-2-line fs-4"></i>  Warranty Protection<br /> <span  style={{fontSize:"14px",color:"#6c757d"}}>Over 2 year</span></p>
+      <p > <i className="ri-store-2-line fs-4"></i>Free Shipping <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>oreder Over 150$</span></p>
+      <p ><i className="ri-phone-fill fs-4"></i> 24 / 7 Support <br /> <span style={{fontSize:"14px",color:"#6c757d"}}>Dedicated Support</span></p>
           </div>
 
 

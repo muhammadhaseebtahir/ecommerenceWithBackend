@@ -103,7 +103,7 @@ export default function AddProducts() {
     formData.append("product", JSON.stringify(product));
    console.log("product", JSON.stringify(product));
 
-      axios.post("http://localhost:8000/dashboard/addproduct", formData, {
+      axios.post("https://ecommerence-backend-9kv6.vercel.app/dashboard/addproduct", formData, {
       headers: {
         'content-Type': "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
